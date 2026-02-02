@@ -829,7 +829,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Share activity on social media
   function shareActivity(activityName, details, platform) {
-    const activityType = getActivityType(activityName, details.description);
     const formattedSchedule = formatSchedule(details);
     
     // Get the current page URL
@@ -839,7 +838,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const shareText = `Check out ${activityName} at Mergington High School! ${details.description} - ${formattedSchedule}`;
     const shareTextEncoded = encodeURIComponent(shareText);
     const urlEncoded = encodeURIComponent(currentUrl);
-    const activityNameEncoded = encodeURIComponent(activityName);
     
     let shareUrl = '';
     
