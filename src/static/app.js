@@ -464,8 +464,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Apply difficulty filter
       if (currentDifficulty) {
-        if (currentDifficulty === "all") {
-          // Show only activities with no difficulty level
+        if (currentDifficulty === "no-level") {
+          // Show only activities with no difficulty level specified
           if (details.difficulty) {
             return;
           }
