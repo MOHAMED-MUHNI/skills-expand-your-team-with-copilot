@@ -32,6 +32,40 @@
   --info-light: #d1ecf1;
 }
 
+/* Dark Mode Color Palette */
+body.dark-mode {
+  /* Primary colors */
+  --primary: #5e72e4;
+  --primary-light: #7889e8;
+  --primary-dark: #3d4fc7;
+  --primary-text: #ffffff;
+
+  /* Secondary colors */
+  --secondary: #ff9500;
+  --secondary-light: #ffb040;
+  --secondary-dark: #e67e00;
+  --secondary-text: #ffffff;
+
+  /* Neutral colors */
+  --background: #1a1d23;
+  --surface: #2d3139;
+  --text-primary: #e4e7eb;
+  --text-secondary: #a0a3a8;
+  --border: #3d4148;
+  --border-light: #353942;
+  --border-focus: #4d5158;
+
+  /* Feedback colors */
+  --success: #4caf50;
+  --success-light: #2d3a2e;
+  --warning: #ff9800;
+  --warning-light: #3a3129;
+  --error: #f44336;
+  --error-light: #3a2929;
+  --info: #2196f3;
+  --info-light: #29333a;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -203,6 +237,49 @@ section h3 {
   border-radius: 10px;
   text-transform: uppercase;
   letter-spacing: 0.3px;
+}
+
+/* Difficulty Badge */
+.difficulty-badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.difficulty-beginner {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.difficulty-intermediate {
+  background-color: #fff3e0;
+  color: #e65100;
+}
+
+.difficulty-advanced {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+/* Dark mode adjustments for difficulty badges */
+body.dark-mode .difficulty-beginner {
+  background-color: #2d3a2e;
+  color: #4caf50;
+}
+
+body.dark-mode .difficulty-intermediate {
+  background-color: #3a3129;
+  color: #ff9800;
+}
+
+body.dark-mode .difficulty-advanced {
+  background-color: #3a2929;
+  color: #f44336;
 }
 
 /* Capacity Indicator */
@@ -539,7 +616,8 @@ footer {
 
 .category-filters,
 .day-filters,
-.time-filters {
+.time-filters,
+.difficulty-filters {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
@@ -547,7 +625,8 @@ footer {
 
 .category-filter,
 .day-filter,
-.time-filter {
+.time-filter,
+.difficulty-filter {
   background-color: var(--background);
   border: 1px solid var(--border);
   color: var(--text-primary);
@@ -560,7 +639,8 @@ footer {
 
 .category-filter.active,
 .day-filter.active,
-.time-filter.active {
+.time-filter.active,
+.difficulty-filter.active {
   background-color: var(--primary);
   color: white;
   border-color: var(--primary-dark);
@@ -568,7 +648,8 @@ footer {
 
 .category-filter:hover,
 .day-filter:hover,
-.time-filter:hover {
+.time-filter:hover,
+.difficulty-filter:hover {
   background-color: var(--primary-light);
   color: white;
 }
@@ -663,4 +744,45 @@ footer {
 
 #logout-button:hover {
   background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Dark Mode Toggle Button */
+#dark-mode-toggle {
+  position: absolute;
+  top: 10px;
+  right: 150px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  color: var(--primary-text);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#dark-mode-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+#dark-mode-toggle .icon {
+  font-size: 1.1rem;
+}
+
+/* Adjust user controls position on mobile */
+@media (max-width: 767px) {
+  #dark-mode-toggle {
+    right: 10px;
+    top: 55px;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+  }
+  
+  #user-controls {
+    top: 10px;
+    right: 10px;
+  }
 }
