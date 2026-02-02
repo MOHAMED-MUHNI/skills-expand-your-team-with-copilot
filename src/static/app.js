@@ -867,10 +867,12 @@ document.addEventListener("DOMContentLoaded", () => {
     
     if (shareUrl) {
       if (platform === 'email') {
-        // For email, directly open the mailto link
-        window.location.href = shareUrl;
+        // For email, create and click an anchor element
+        const anchor = document.createElement('a');
+        anchor.href = shareUrl;
+        anchor.click();
       } else {
-        // For social media, open in a new window
+        // For social media, open in a new window with security features
         const width = 600;
         const height = 500;
         const left = (window.screen.width - width) / 2;
@@ -878,7 +880,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.open(
           shareUrl,
           'share',
-          `width=${width},height=${height},left=${left},top=${top},menubar=no,toolbar=no,location=no`
+          `width=${width},height=${height},left=${left},top=${top},menubar=no,toolbar=no,location=no,noopener,noreferrer`
         );
       }
     }
