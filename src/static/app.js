@@ -569,6 +569,12 @@ document.addEventListener("DOMContentLoaded", () => {
         `
         }
       </div>
+      <div class="social-share-buttons">
+        <button class="share-button facebook" data-activity="${name}" data-platform="facebook" title="Share on Facebook">f</button>
+        <button class="share-button twitter" data-activity="${name}" data-platform="twitter" title="Share on Twitter">𝕏</button>
+        <button class="share-button linkedin" data-activity="${name}" data-platform="linkedin" title="Share on LinkedIn">in</button>
+        <button class="share-button email" data-activity="${name}" data-platform="email" title="Share via Email">✉</button>
+      </div>
     `;
 
     // Add click handlers for delete buttons
@@ -586,6 +592,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     }
+
+    // Add click handlers for social share buttons
+    const shareButtons = activityCard.querySelectorAll(".share-button");
+    shareButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const activityName = button.dataset.activity;
+        const platform = button.dataset.platform;
+        shareActivity(activityName, details, platform);
+      });
+    });
 
     activitiesList.appendChild(activityCard);
   }
@@ -809,6 +825,65 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       messageDiv.classList.add("hidden");
     }, 5000);
+  }
+
+  // Share activity on social media
+  function shareActivity(activityName, details, platform) {
+    const formattedSchedule = formatSchedule(details);
+    
+    // Get the current page URL
+    const currentUrl = window.location.href.split('?')[0];
+    
+    // Create share text
+    const shareText = `Check out ${activityName} at Mergington High School! ${details.description} - ${formattedSchedule}`;
+    const shareTextEncoded = encodeURIComponent(shareText);
+    const urlEncoded = encodeURIComponent(currentUrl);
+    
+    let shareUrl = '';
+    
+    switch (platform) {
+      case 'facebook':
+        // Facebook Share Dialog
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${urlEncoded}&quote=${shareTextEncoded}`;
+        break;
+      
+      case 'twitter':
+        // Twitter/X Share
+        shareUrl = `https://twitter.com/intent/tweet?text=${shareTextEncoded}&url=${urlEncoded}`;
+        break;
+      
+      case 'linkedin':
+        // LinkedIn Share
+        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${urlEncoded}`;
+        break;
+      
+      case 'email':
+        // Email Share
+        const emailSubject = encodeURIComponent(`Join ${activityName} at Mergington High School`);
+        const emailBody = encodeURIComponent(`Hi,\n\nI wanted to share this exciting activity with you:\n\n${activityName}\n${details.description}\n\nSchedule: ${formattedSchedule}\n\nLearn more at: ${currentUrl}\n\nBest regards`);
+        shareUrl = `mailto:?subject=${emailSubject}&body=${emailBody}`;
+        break;
+    }
+    
+    if (shareUrl) {
+      if (platform === 'email') {
+        // For email, create and click an anchor element
+        const anchor = document.createElement('a');
+        anchor.href = shareUrl;
+        anchor.click();
+      } else {
+        // For social media, open in a new window with security features
+        const width = 600;
+        const height = 500;
+        const left = (window.screen.width - width) / 2;
+        const top = (window.screen.height - height) / 2;
+        window.open(
+          shareUrl,
+          'share',
+          `width=${width},height=${height},left=${left},top=${top},menubar=no,toolbar=no,location=no,noopener,noreferrer`
+        );
+      }
+    }
   }
 
   // Handle form submission
